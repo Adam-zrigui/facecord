@@ -1,6 +1,7 @@
 # facecord
-chat app using mern
 
-`npm start`
+chat app using mern tech stack
 
-# app running currently in development environment in **[localhost:5173](http://localhost:5173)**
+## `npm start`
+
+### app running currently in development environment in **[localhost:5173](http://localhost:5173)**

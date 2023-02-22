@@ -1,3 +1,4 @@
+//@ts-strict
 import express from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
@@ -8,13 +9,11 @@ config({path: path.resolve(__dirname , "./config/.env")})
 export const app = express()
 app.use(express.json())
 app.use(cors())
-
-
 app.get('/', getter)
 app.post('/post', poster) 
 const PORT =  process.env.PORT || 8000 
 const server = app.listen(PORT, () => {
-    console.log(`Server is listing on port ${PORT}`);
+    console.log(`http://localhost:${PORT}`);
   });
  server.on('error', e => console.error("Error", e));
 
