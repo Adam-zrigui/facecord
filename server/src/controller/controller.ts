@@ -1,38 +1,38 @@
-import prisma from '../config/prisma';
-
-interface userdb {
-    username: string;
-    email: string;
-   
-    password: string;
- }
-export async function createUser(user :userdb ) {
-    try {
-        const userFrom = await prisma.user.create({
-            data: {
-                username: user.username,
-                email: user.email,
-                password : user.password
-            },
-        })
-        return { user: userFrom}
-    } catch (error : any) {
-        return { error: error.message}
+import { Response , Request } from "express";
+import * as jwt from "jsonwebtoken";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { generic500Error } from "../utils/constants";
+const jwtsecret = process.env.JWT_SECRET
+export default class AUTHCONTROLLER {
+    constructor(private auth: PrismaClient) {
+        
     }
-}
-export async function getUsers() {
+    async login(req : Request, res : Response) {
 try {
-        const users = await prisma.user.findMany()
-        return {users}
-} catch (error : any) {
-    return { error: error.message }
+    return;
+} catch (error) {
+    generic500Error(res , error);
 }
-}   
-export async function FindId(id : object) {
-    try {
-        const user = await prisma.user.findUnique({where :  id })
-        return { user }
-    } catch (error : any) {
-        return { error: error.message }
     }
+    async register(req : Request, res : Response) {
+try {
+return    
+} catch (error) {
+    generic500Error(res , error);
+}
+    }
+    logout(req : Request, res : Response) {
+try {
+    return
+} catch (error) {
+    generic500Error(res , error);
+}
+    }
+    // async hashPassword() {
+
+    // }
+    // async generateJWT() {}
+    // async comparePassword() {}
+    // generateRandomAvator(){}
 }
