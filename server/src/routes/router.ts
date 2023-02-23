@@ -1,7 +1,7 @@
 import  { Request, Response, Router }   from "express";
 import prisma from "../config/prisma";
 import AUTHCONTROLLER from "../controller/controller";
-import { authReq } from "../lib/valid";
+import { authReq } from "../mongo/valid";
 import validate from "../middlewares/validator";
 
 const router = Router()

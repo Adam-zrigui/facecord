@@ -1,21 +1,52 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
 
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
 model User {
-    id       String    @id @default(auto()) @map("_id") @db.ObjectId
-    username String  @unique
-    email String @unique
-    password String 
-    updatedAt DateTime @updatedAt
-    timestamp DateTime @db.Timestamp
-    createdAt DateTime @default(now()) 
-    @@unique([username , password])
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  username  String    @unique
+  photo     String
+  password  String
+  createdAt DateTime  @default(now())
+  contacts  Contact[]
+}
+
+model Conversation {
+ id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  participants String[]
+  messages     Message[]
+  contacts     Contact[]
+}
+
+model Contact {
+   id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  username       String
+  photo          String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String  @db.ObjectId
+  lastMessage    Json?
+  unreadMessages Int       @default(0)
+  status         Status    @default(offline)
+  createdAt      DateTime  @default(now())
+  User   User? @relation(fields: [userId], references: [id])
+  userId String? @db.ObjectId
+}
+
+model Message {
+ id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  from           String
+  text           String
+  createdAt      DateTime      @default(now())
+  Conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  conversationId String?  @db.ObjectId
+}
+
+enum Status {
+  online
+  offline
 }
