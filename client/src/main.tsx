@@ -4,14 +4,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
-import './sass/index.scss'
+import Router from '@/components/router/Router'
+import '@/sass/index.scss'
 const client = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
   <QueryClientProvider client={client}>
-  <App />
+  <Router />
    <ReactQueryDevtools initialIsOpen={false} /> 
   </QueryClientProvider>
     </BrowserRouter>
