@@ -2,15 +2,8 @@ import React from 'react'
 import { Counter } from './Counter'
 import { resolveRoute  } from 'vite-plugin-ssr/routing'
 
-export default async (pageContext : any) => {
-  // Ensure that `/product/@id/edit` can be accessed only by admins
-  if (!pageContext.user.isAdmin) {
-    return false
-  }
 
-  // We can use vite-plugin-ssr's Route String resolver
-  return resolveRoute('/product/@id/edit', pageContext.urlPathname)
-}
+  // We can use vite-plugin-ssr's Route String reso
 export { Page }
 
 function Page() {

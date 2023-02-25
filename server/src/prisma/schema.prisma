@@ -38,14 +38,13 @@ model Contact {
 }
 
 model Message {
- id       String    @id @default(auto()) @map("_id") @db.ObjectId
+   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   from           String
   text           String
   createdAt      DateTime      @default(now())
   Conversation   Conversation? @relation(fields: [conversationId], references: [id])
   conversationId String?  @db.ObjectId
 }
-
 enum Status {
   online
   offline
