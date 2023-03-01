@@ -8,7 +8,8 @@ import contacter from './routes/contact';
 import conversation from './routes/conversation';
 import WEBS from './controller/socket';
 import prisma from './config/prisma';
-dotenv.config()
+import path from 'path';
+dotenv.config({path :path.resolve(__dirname, '../../server/.env')})
 export const app = express()
 app.use(express.json())
 app.use(cors())

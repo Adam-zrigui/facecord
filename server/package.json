@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+
   "scripts": {
     "build": "tsc -p .",
     "server": "nodemon ./src/index.ts"
@@ -21,18 +22,18 @@
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.34.0",
     "nodemon": "^2.0.20",
+    "prisma": "^4.11.0",
     "tslint": "^6.1.3",
     "typescript": "^4.9.4",
     "typescript-strict-plugin": "^2.1.0"
   },
   "dependencies": {
-    "@prisma/client": "^4.10.1",
+    "@prisma/client": "^4.11.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "prisma": "^4.10.1",
     "socket.io": "^4.6.1",
     "stripe": "^11.7.0",
     "ts-node": "^10.9.1",

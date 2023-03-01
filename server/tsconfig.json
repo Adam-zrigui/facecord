@@ -20,6 +20,6 @@
         }
       ]
     },
-"include": ["src/**/*", "reset.d.ts"],
+"include": ["src/**/*", "reset.d.ts", "src/utils", "routes", "mongo", "middlewares", "controller", "interfaces"],
 
 }

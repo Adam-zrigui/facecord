@@ -1,7 +1,7 @@
 import {AuthResponse} from '@/components/interfaces'
 import {User} from '@/components/interfaces'
 import {getItemFromLocalStorage} from '@/components/utils/localS'
-import { create } from 'zustand'
+import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
 import {immer} from 'zustand/middleware/immer'
 
