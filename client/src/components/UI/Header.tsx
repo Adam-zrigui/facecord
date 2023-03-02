@@ -2,11 +2,16 @@ import React, { useCallback, useState } from 'react'
 import {RiMenu3Fill} from 'react-icons/ri'
 import useAuthContext from '../context/authContext'
 import {BiSearch} from 'react-icons/bi'
+import { Dropdown } from './Dropdown'
+import useModalContext from '../context/modalContext'
+import useContactsContext from '../context/ContactContext'
 export  function Header() {
     const AC = useAuthContext()
     const [isMenuV , setV] = useState(false)
+    const {openModal} = useModalContext();
+    const {setFilterKey} = useContactsContext()
     const onFilter = useCallback((e : React.ChangeEvent<HTMLInputElement>) =>{
-
+ setFilterKey(e.target.value)
     }, [])
   
     const toggleMenu = useCallback(() => {
@@ -15,11 +20,11 @@ export  function Header() {
       const menuItems = [
         {
           label: "My Profile",
-       //   onClick: () => openModal("profile"),
+          onClick: () => openModal("profile"),
         },
         {
           label: "Add Contact",
-         // onClick: () => openModal("contact"),
+          onClick: () => openModal("contact"),
         },
         {
           label: "Logout",
@@ -36,10 +41,11 @@ export  function Header() {
         <div>
             <h2>Contact</h2>
                   <RiMenu3Fill onClick={toggleMenu} size={22} />
+     {isMenuV && <Dropdown menuItems={menuItems} isOpen={isMenuV} />}
         </div>
 <div>
     <BiSearch />
-    <input type="text" />
+    <input type="text" onChange={onFilter}/>
 </div>
     </div>
   )

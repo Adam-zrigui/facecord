@@ -1,12 +1,11 @@
 import {Routes, Route, Outlet, Navigate} from 'react-router-dom'
 import {lazy, Suspense} from 'react'
 import useAuthContext from './components/context/authContext'
-import Register from '@/components/pages/auth/register'
-import Login from './components/pages/auth/login'
-
 function App() {
   const Home = lazy(() => import('@/components/pages/Home'))
   const Notfound = lazy(() => import('@/components/pages/NotFound'))
+  const Login = lazy(() => import('@/components/pages/auth/login'))
+  const Register = lazy(() => import('@/components/pages/auth/register'))
   const Loading = lazy(() => import('@/components/pages/Loading'))
     const { isAuthenticated }  = useAuthContext() 
     const ProtectedRoutes = () => (isAuthenticated ? <Outlet /> : <Navigate to='/login' />)
