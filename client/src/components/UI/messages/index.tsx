@@ -17,6 +17,7 @@ const Messages: React.FC = () => {
     ["conversation", conversationId],
     () => getConversation(conversationId),
     {
+      enabled: !!conversationId && conversationId !== '',
       onSuccess: (data) => {
         setConversation(data.conversation);
       },
@@ -27,7 +28,7 @@ const Messages: React.FC = () => {
     bottomRef.current?.scrollIntoView({behavior: "smooth"});
 
     return () => {};
-  }, [isVisible, conversationId]);
+  }, [isVisible, conversationId])
 
   return (
     <div>

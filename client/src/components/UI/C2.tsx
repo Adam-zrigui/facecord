@@ -15,7 +15,7 @@ export const Contact: React.FC<{contact: ContactI}> = React.memo((props) => {
   }, [conversationId]);
 
   return (
-    <div is-activechat={isActiveChat}>
+    <div is-activechat={isActiveChat.toString()}>
       <img onClick={onClick} alt="Avatar image" src={photo} />
       <div onClick={onClick}>
         <h3>{username}</h3>

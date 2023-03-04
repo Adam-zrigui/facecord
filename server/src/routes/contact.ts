@@ -1,17 +1,14 @@
-import { Router } from "express";
-import { verifyToken } from "../middlewares/jwtVerify";
-import CONTACTCONTROLLER from "../controller/contact";
-import prisma from "../config/prisma";
+import express from "express";
+import {PrismaClient} from "@prisma/client";
+import {verifyToken} from "../middlewares/verifyToken";
+import ContactController from "../controllers/contact";
 
-const contacter = Router()
+const router = express.Router();
+const prisma = new PrismaClient();
+const contactController = new ContactController(prisma);
+const baseUrl = "/contact";
 
-const concon = new CONTACTCONTROLLER(prisma);
+router.get(`${baseUrl}`, verifyToken(), (req, res) => contactController.getContacts(req, res));
+router.post(`${baseUrl}`, verifyToken(), (req, res) => contactController.createContact(req, res));
 
-
-contacter.get('/contact', verifyToken(), (req , res) => concon.getContacts(req , res) )
-contacter.post('/contact', verifyToken(), (req , res) => concon.createContacts(req , res) )
-
-
- 
-
-export default contacter
+export default router;

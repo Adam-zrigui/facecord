@@ -5,11 +5,15 @@ import {BiSearch} from 'react-icons/bi'
 import { Dropdown } from './Dropdown'
 import useModalContext from '../context/modalContext'
 import useContactsContext from '../context/ContactContext'
+import useSocketContext from '../context/socketContext'
+import useConversationContext from '../context/conversationContext'
 export  function Header() {
     const AC = useAuthContext()
     const [isMenuV , setV] = useState(false)
     const {openModal} = useModalContext();
     const {setFilterKey} = useContactsContext()
+    const {socket} = useSocketContext();
+    const {resetConversationState} = useConversationContext();
     const onFilter = useCallback((e : React.ChangeEvent<HTMLInputElement>) =>{
  setFilterKey(e.target.value)
     }, [])
@@ -29,10 +33,10 @@ export  function Header() {
         {
           label: "Logout",
           onClick: () => {
-        //    socket.emit("logout", authContext.user?.id);
+           socket.emit("logout", AC.user?.id);
             AC.logout();
             window.localStorage.clear();
-            //resetConversationState();
+            resetConversationState();
           },
         },
       ];

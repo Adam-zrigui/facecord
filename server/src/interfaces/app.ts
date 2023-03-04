@@ -1,12 +1,12 @@
-export interface decodedUser {
-id: string;
-usernames: string;
-}
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace Express {
-        export interface Request {
-            user?: decodedUser;
-        }
+  namespace Express {
+    export interface Request {
+      user?: DecodedUser;
     }
+  }
+}
+
+export interface DecodedUser {
+  id: string;
+  username: string;
 }

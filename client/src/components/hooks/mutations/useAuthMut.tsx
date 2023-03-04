@@ -2,10 +2,10 @@ import {useState} from "react";
 import {login as loginApi, register as registerApi} from "@/components/api/authApi";
 import useAuthContext from "@/components/context/authContext";
 import {AuthCredentials} from "@/components/interfaces";
-//import useSocketContext from "@/store/socketContext";
 import {setItemToLocalStorage} from "@/components/utils/localS";
 import {useMutation} from "@tanstack/react-query";
 import errorHandler from "@/components/utils/EHandler";
+import useSocketContext from "@/components/context/socketContext";
 
 interface AuthMutation {
   values: AuthCredentials;
@@ -15,7 +15,7 @@ interface AuthMutation {
 const useAuthMutation = () => {
   const {login} = useAuthContext();
   const [error, setError] = useState("");
-  //const {socket} = useSocketContext();
+  const {socket} = useSocketContext();
 
   const {isLoading, mutate} = useMutation(
     ({values, type}: AuthMutation) => {
@@ -32,7 +32,7 @@ const useAuthMutation = () => {
         login({jwt, user});
 
         // emit socket function
-      //  socket.emit("login", user.id);
+        socket.emit("login", user.id);
       },
       onError(error) {
         setError(errorHandler(error));

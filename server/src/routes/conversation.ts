@@ -1,16 +1,20 @@
-import { Router } from "express";
-import { verifyToken } from "../middlewares/jwtVerify";
-import prisma from "../config/prisma";
-import CONVERSATIONCONTROLLER from "../controller/conversation";
-import validate from "../middlewares/validator";
-import { createMsgReq } from "../mongo/valid";
+import express from "express";
+import {PrismaClient} from "@prisma/client";
+import {verifyToken} from "../middlewares/verifyToken";
+import ConversationController from "../controllers/conversation";
+import {validate} from "../middlewares/validate";
+import {createMessageRequest} from "../mongo/valid";
 
-const conversation = Router()
-const convercon = new CONVERSATIONCONTROLLER(prisma) 
-const baseurl = '/conversation'
+const router = express.Router();
+const prisma = new PrismaClient();
+const conversationController = new ConversationController(prisma);
+const baseUrl = "/conversation";
 
-conversation.get(`${baseurl}/:id`, verifyToken(), (req , res) => convercon.getCon(req , res))
-conversation.post(`${baseurl}`, validate(createMsgReq), verifyToken(), (req , res) => convercon.createMsg(req , res))
+router.get(`${baseUrl}/:id`, verifyToken(), (req, res) =>
+  conversationController.getConversation(req, res)
+);
+router.post(`${baseUrl}`, validate(createMessageRequest), verifyToken(), (req, res) =>
+  conversationController.createMessage(req, res)
+);
 
-
-export default conversation
+export default router;

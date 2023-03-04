@@ -1,7 +1,7 @@
 import {getContacts} from "@/components/api/userApi";
 import useAuthContext from "@/components/context/authContext";
 import useContactsContext from "@/components/context/ContactContext";
-//import useSocketContext from "@/store/socketContext";
+import useSocketContext from "@/components/context/socketContext";
 import useQueryParams from "@/components/hooks/useQueryParams";
 import {Contact} from "@/components/interfaces";
 import {useQuery} from "@tanstack/react-query";
@@ -28,18 +28,18 @@ export const Contacts: React.FC = () => {
    const conversationId = String(queryParams.get("conversation_id"));
    const {user} = useAuthContext();
 
-//   const {socket} = useSocketContext();
+   const {socket} = useSocketContext();
 
-//   useEffect(() => {
-//     socket.on("newContact", (contact: Contact) => addContact(contact));
-//     socket.on("updateContactValues", (contact: Contact) => updateContactValues(contact));
-//     socket.on("updateMyContact", (contact: Contact) => updateContactValues(contact));
-//     socket.emit("conversationChange", {conversationId, myUserId: user?.id});
+   useEffect(() => {
+     socket.on("newContact", (contact: Contact) => addContact(contact));
+     socket.on("updateContactValues", (contact: Contact) => updateContactValues(contact));
+     socket.on("updateMyContact", (contact: Contact) => updateContactValues(contact));
+     socket.emit("conversationChange", {conversationId, myUserId: user?.id});
 
-//     return () => {
-//       socket.off();
-//     };
-//   }, [conversationId]);
+     return () => {
+       socket.off();
+     };
+   }, [conversationId]);
 
   useEffect(() => {
     filterContacts();
@@ -53,7 +53,7 @@ export const Contacts: React.FC = () => {
         <>
           {filteredContacts && filteredContacts.length > 0 ? (
             filteredContacts?.map((contact) => (
-              <ContactComponent key={contact.id} contact={contact} />
+              <ContactComponent key={contact.id}  contact={contact} />
             ))
           ) : (
             <p>No contacts found</p>
